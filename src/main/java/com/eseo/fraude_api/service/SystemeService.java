@@ -25,9 +25,7 @@ public class SystemeService {
     @Autowired
     private EtudiantRepository etudiantRepository;
 
-    // ─────────────────────────────────────────
     // FORMULAIRES
-    // ─────────────────────────────────────────
 
     /** @brief Récupère tous les formulaires. */
     public List<Formulaire> getAllFormulaires() {
@@ -73,9 +71,8 @@ public class SystemeService {
         return formulaireRepository.findByEtudiantsId(etudiantId);
     }
 
-    // ─────────────────────────────────────────
+
     // EPREUVES
-    // ─────────────────────────────────────────
 
     /** @brief Récupère toutes les épreuves. */
     public List<Epreuve> getAllEpreuves() {
@@ -100,9 +97,9 @@ public class SystemeService {
         epreuveRepository.deleteById(id);
     }
 
-    // ─────────────────────────────────────────
+    //
     // ETUDIANTS
-    // ─────────────────────────────────────────
+    //
 
     /** @brief Récupère tous les étudiants. */
     public List<Etudiant> getAllEtudiants() {
@@ -153,9 +150,9 @@ public class SystemeService {
         etudiantRepository.deleteById(id);
     }
 
-    // ─────────────────────────────────────────
+
     // STATISTIQUES
-    // ─────────────────────────────────────────
+
 
     /**
      * @brief Retourne les statistiques globales du système.
@@ -184,5 +181,40 @@ public class SystemeService {
                 "moyenneFraudesParFormulaire", moyenne,
                 "ecartType", ecartType
         );
+    }
+
+    // FRAUDES
+
+
+    @Autowired
+    private FraudeRepository fraudeRepository;
+
+    /**
+     * @brief Récupère toutes les fraudes.
+     */
+    public List<Fraude> getAllFraudes() {
+        return fraudeRepository.findAll();
+    }
+
+    /**
+     * @brief Ajoute une fraude et la lie à un formulaire.
+     * @param formulaireId id du formulaire
+     * @param fraude la fraude à ajouter
+     * @return le formulaire mis à jour
+     */
+    public Formulaire ajouterFraude(Long formulaireId, Fraude fraude) {
+        Fraude savedFraude = fraudeRepository.save(fraude);
+        Formulaire f = getFormulaireById(formulaireId);
+        f.ajouterFraude(savedFraude);
+        return formulaireRepository.save(f);
+    }
+
+    /**
+     * @brief Supprime une fraude.
+     */
+    public void supprimerFraude(Long id) {
+        if (!fraudeRepository.existsById(id))
+            throw new RuntimeException("Fraude introuvable");
+        fraudeRepository.deleteById(id);
     }
 }

@@ -22,9 +22,8 @@ public class SystemeController {
     @Autowired
     private SystemeService systemeService;
 
-    // ─────────────────────────────────────────
+
     // ETUDIANTS
-    // ─────────────────────────────────────────
 
     /** GET /api/etudiants */
     @GetMapping("/etudiants")
@@ -94,9 +93,9 @@ public class SystemeController {
         }
     }
 
-    // ─────────────────────────────────────────
+
     // EPREUVES
-    // ─────────────────────────────────────────
+
 
     /** GET /api/epreuves */
     @GetMapping("/epreuves")
@@ -133,9 +132,8 @@ public class SystemeController {
         }
     }
 
-    // ─────────────────────────────────────────
     // FORMULAIRES
-    // ─────────────────────────────────────────
+
 
     /** GET /api/formulaires */
     @GetMapping("/formulaires")
@@ -189,13 +187,83 @@ public class SystemeController {
         }
     }
 
-    // ─────────────────────────────────────────
+
     // STATISTIQUES
-    // ─────────────────────────────────────────
+
 
     /** GET /api/statistiques */
     @GetMapping("/statistiques")
     public ResponseEntity<Map<String, Object>> getStatistiques() {
         return ResponseEntity.ok(systemeService.getStatistiques());
+    }
+    // FRAUDES
+
+    /** GET /api/fraudes */
+    @GetMapping("/fraudes")
+    public ResponseEntity<List<Fraude>> getAllFraudes() {
+        return ResponseEntity.ok(systemeService.getAllFraudes());
+    }
+
+    /** POST /api/formulaires/{id}/fraudes/iag */
+    @PostMapping("/formulaires/{id}/fraudes/iag")
+    public ResponseEntity<Formulaire> ajouterFraudeIAG(
+            @PathVariable Long id,
+            @RequestBody FraudeIAG fraude) {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(systemeService.ajouterFraude(id, fraude));
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    /** POST /api/formulaires/{id}/fraudes/iag-connectee */
+    @PostMapping("/formulaires/{id}/fraudes/iag-connectee")
+    public ResponseEntity<Formulaire> ajouterFraudeIAGConnectee(
+            @PathVariable Long id,
+            @RequestBody FraudeIAGConnectee fraude) {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(systemeService.ajouterFraude(id, fraude));
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    /** POST /api/formulaires/{id}/fraudes/papier */
+    @PostMapping("/formulaires/{id}/fraudes/papier")
+    public ResponseEntity<Formulaire> ajouterFraudePapier(
+            @PathVariable Long id,
+            @RequestBody FraudePapier fraude) {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(systemeService.ajouterFraude(id, fraude));
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    /** POST /api/formulaires/{id}/fraudes/calculatrice */
+    @PostMapping("/formulaires/{id}/fraudes/calculatrice")
+    public ResponseEntity<Formulaire> ajouterFraudeCalculatrice(
+            @PathVariable Long id,
+            @RequestBody FraudeCalculatrice fraude) {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(systemeService.ajouterFraude(id, fraude));
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    /** DELETE /api/fraudes/{id} */
+    @DeleteMapping("/fraudes/{id}")
+    public ResponseEntity<Void> supprimerFraude(@PathVariable Long id) {
+        try {
+            systemeService.supprimerFraude(id);
+            return ResponseEntity.noContent().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
