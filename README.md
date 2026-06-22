@@ -30,7 +30,7 @@ Ouvrez le fichier `src/main/resources/application.properties` et modifiez les li
 ```properties
 spring.datasource.url=jdbc:postgresql://localhost:5432/fraude_db
 spring.datasource.username=postgres
-spring.datasource.password=VOTRE_MOT_DE_PASSE
+spring.datasource.password=2005
 ```
 
 **4. Lancer le backend**
