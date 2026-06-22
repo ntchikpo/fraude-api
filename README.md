@@ -1,3 +1,29 @@
+## 🚀 Lancer le projet en local
+
+### Prérequis
+- Java 17+
+- Maven
+- PostgreSQL 17
+
+### Étapes
+
+1. Cloner le repo
+   git clone https://github.com/ntchikpo/fraude-api.git
+
+2. Créer la base de données dans PostgreSQL
+   CREATE DATABASE fraude_db;
+
+3. Configurer application.properties
+   spring.datasource.url=jdbc:postgresql://localhost:5432/fraude_db
+   spring.datasource.username=postgres
+   spring.datasource.password=VOTRE_MOT_DE_PASSE
+
+4. Lancer le backend
+   mvn spring-boot:run
+
+   → L'API tourne sur http://localhost:8080
+
+   
 # Fraude API - Spring Boot
 
 API REST de gestion des fraudes académiques, développée 
