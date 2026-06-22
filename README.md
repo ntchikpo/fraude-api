@@ -14,9 +14,9 @@
    CREATE DATABASE fraude_db;
 
 3. Configurer application.properties
-   spring.datasource.url=jdbc:postgresql://localhost:5432/fraude_db
-   spring.datasource.username=postgres
-   spring.datasource.password=VOTRE_MOT_DE_PASSE
+   spring.datasource.url=jdbc:postgresql://localhost:5432/fraude_db ;
+   spring.datasource.username=postgres ;
+   spring.datasource.password=2005 ;
 
 4. Lancer le backend
    mvn spring-boot:run
